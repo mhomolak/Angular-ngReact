@@ -30,14 +30,28 @@
 
 
   // list of controllers...
-  app.controller('myAppHomeCtrl', ['$scope', function($scope){
+  app.controller( 'myAppHomeCtrl', function( $scope ) {
+    $scope.person = { firstName: 'Bob', lastName: 'Guy' };
+  } );
 
-    $scope.displayController = 'myAppHome';
+  var Hello = React.createClass( {
+    propTypes: {
+      firstName: React.PropTypes.string.isRequired,
+      lastName: React.PropTypes.string.isRequired
+    },
 
-  }])
+    render: function() {
+      return React.DOM.span( null,
+        'Hello, ' + this.props.firstName + ' ' + this.props.lastName + '.'
+      );
+    }
+  } );
 
+  app.value( "Hello", Hello );
 
-
+  app.directive( 'hello', function( reactDirective ) {
+    return reactDirective( Hello );
+  } );
 
 
 })()
