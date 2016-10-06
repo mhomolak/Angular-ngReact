@@ -1,6 +1,6 @@
 (function(){
 
-  var app = angular.module('myApp',['ngRoute']);
+  var app = angular.module('myApp',['ngRoute', 'react']);
 
   // point to correct template for url...
   app.config(['$routeProvider', function($routeProvider){
@@ -9,7 +9,7 @@
       templateUrl:'templates/myAppHome.ejs',
       controller:'myAppHomeCtrl'
     }).otherwise( {redirectTo:'/' } )
-    
+
   }])
 
 
