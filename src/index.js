@@ -1,8 +1,8 @@
-import angular from 'angular'
-import React from 'react'
-import ReactDOM from 'react-dom'
-import 'ngreact'
-import 'angular-ui-router'
+import angular from 'angular';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import 'ngreact';
+import 'angular-ui-router';
 
 import ComponentOwner from '../component-archetype/src/js/component-owner';
 import '../component-archetype/demo/elements.css';
@@ -33,17 +33,10 @@ class AppCtrl {
   }
 }
 
-const Hello = (props) =>{
-  return(
-    <h1>Hello {props.name}</h1>
-  )
-};
-
-
 const app = angular.module( 'app', ['ui.router', 'react'] );
 
 app.value("ComponentOwner", ComponentOwner);
-app.directive('componentOwner', (reactDirective) =>{
+app.directive('componentOwner', (reactDirective) => {
   return reactDirective( ComponentOwner )
 });
 
