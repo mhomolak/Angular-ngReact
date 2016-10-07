@@ -1,15 +1,14 @@
 const webpack = require('webpack');
 
 const DEV = process.env.NODE_ENV==='development';
-const PROD = process.env.NODE_ENV==='production';
 
-const config = {
-  entry: ['./src'],
+module.exports = {
+  entry: ['./src', 'webpack/hot/dev-server'],
   output: {
     path: `${__dirname}/public`,
     filename: 'bundle.js'
   },
-  devtool: !PROD ? 'source-map' : null,
+  devtool: '#inline-source-map',
   devServer: {
     contentBase: 'public',
     historyApiFallback: {
@@ -17,8 +16,8 @@ const config = {
     }
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env':{
@@ -27,7 +26,7 @@ const config = {
     })
   ],
   resolve: {
-    extensions: ['', '.html', '.js']
+    extensions: ['', '.html', '.js', '.json', '.css']
   },
   module: {
     loaders: [
@@ -48,22 +47,10 @@ const config = {
         test: /\.css?$/,
         loader: "style-loader!css-loader!"
       },
+      {
+        test: /\.json/,
+        loader: 'json'
+      }
     ]
   }
 };
-
-if(!DEV){
-    new webpack.optimize.UglifyJsPlugin({
-      mangle: false,
-      compressor: {
-        warnings: true
-      }
-    })
-} else {
-  config.entry.push('webpack/hot/dev-server');
-  config.plugins.push(
-    new webpack.HotModuleReplacementPlugin()
-  )
-}
-
-module.exports = config;
