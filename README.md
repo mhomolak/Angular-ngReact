@@ -1,3 +1,3 @@
 #angular with ngreact
 
-WIP
+Working without ngreact
